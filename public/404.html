@@ -14,6 +14,16 @@
     <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+
+    <meta http-equiv="Content-Security-Policy" 
+        content="default-src 'self' data: gap: 'unsafe-eval' ws: ; 
+        style-src https: *.sivabharathy.in ;
+        script-src https: *.sivabharathy.in ;
+        media-src 'none'; 
+        font-src *;
+        connect-src *;
+        img-src 'self' data: content:;">
+        
     <style>
         body {
             display: flex;
