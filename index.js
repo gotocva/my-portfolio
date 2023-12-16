@@ -28,19 +28,17 @@ app.all('/deploy', (req, res) => {
     exec(command, (error, stdout, stderr) => {
       if (error) {
         console.error(`Error: ${error.message}`);
-        return;
       }
   
       if (stderr) {
         console.error(`stderr: ${stderr}`);
-        return;
       }
   
       console.log(`stdout: ${stdout}`);
     });
   }
 
-  res.json({status: true});
+  return res.json({status: true});
 });
 
 // Set up a route to handle 404 errors
