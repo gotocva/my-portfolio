@@ -28,7 +28,7 @@ app.all('/deploy', (req, res) => {
     console.log(signature);
     console.log({headers: req.headers});
     const hash = crypto.createHmac('sha256', secret).update(data).digest('hex');
-
+    console.log({hash});
     if (crypto.timingSafeEqual(Buffer.from(signature, 'utf8'), Buffer.from(`sha256=${hash}`, 'utf8'))) {
       // Webhook is valid, process the payload
       exec('git stash', (error, stdout, stderr) => {
