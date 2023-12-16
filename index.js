@@ -22,22 +22,33 @@ app.get('/', (req, res) => {
 app.all('/deploy', (req, res) => {
   try {
     // 8e1ea604-540b-40cb-b39e-473a9e2f478a
+    const secret = "8e1ea604-540b-40cb-b39e-473a9e2f478a";
     const signature = req.headers['x-hub-signature-256'];
     console.log(signature);
     console.log({headers: req.headers});
-    exec('git stash', (error, stdout, stderr) => {
-      console.error(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
-      exec('git pull', (error, stdout, stderr) => {
+    const hash = crypto.createHmac('sha256', secret).update(data).digest('hex');
+
+    if (crypto.timingSafeEqual(Buffer.from(signature, 'utf8'), Buffer.from(`sha256=${hash}`, 'utf8'))) {
+      // Webhook is valid, process the payload
+      exec('git stash', (error, stdout, stderr) => {
         console.error(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
-        exec('npm install -f', (error, stdout, stderr) => {
+        exec('git pull', (error, stdout, stderr) => {
           console.error(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
-          exec('pm2 restart default-frontend', (error, stdout, stderr) => {
+          exec('npm install -f', (error, stdout, stderr) => {
             console.error(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
+            exec('pm2 restart default-frontend', (error, stdout, stderr) => {
+              console.error(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
+            });
           });
         });
       });
-    });
-    res.json({status: true});
+      res.json({status: true});
+    } else {
+      // Invalid webhook, respond with an error
+      console.log('Invalid webhook signature on webhook.');
+      res.json({status: false});
+    }
+    
   } catch (error) {
     res.json({status: true});
   }
