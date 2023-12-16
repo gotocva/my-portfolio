@@ -3,6 +3,7 @@
 const express = require('express');
 const path = require('path');
 const { exec } = require('child_process');
+const fs = require('fs');
 
 const app = express();
 const port = 8000;
@@ -39,7 +40,15 @@ app.all('/deploy', (req, res) => {
 
 // Set up a route to handle 404 errors
 app.use((req, res) => {
-    res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+  const filePath = path.join(__dirname, 'public', req.path+'.html');
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      res.status(200).sendFile(path.join(__dirname, 'public', '404.html'));
+    } else {
+      res.status(200).sendFile(path.join(__dirname, 'public', req.path+'.html'));
+    }
+  });
+    
 });
 
 // Start the server
