@@ -17,6 +17,8 @@ app.get('/', (req, res) => {
 
 app.all('/deploy', (req, res) => {
 
+  res.json({status: true});
+  
   const commands = [
     'git stash',
     'git pull',
@@ -38,7 +40,6 @@ app.all('/deploy', (req, res) => {
     });
   }
 
-  return res.json({status: true});
 });
 
 // Set up a route to handle 404 errors
