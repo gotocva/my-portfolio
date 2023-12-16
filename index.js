@@ -2,6 +2,7 @@
 
 const express = require('express');
 const path = require('path');
+const { exec } = require('child_process');
 
 const app = express();
 const port = 8000;
@@ -12,6 +13,33 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Set up a route to handle the root URL
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.all('/deploy', (req, res) => {
+
+  const commands = [
+    'git stash',
+    'git pull',
+    'npm install -f',
+    'pm2 restart default-backend'
+  ]
+  for (let i = 0; i < commands.length; i++) {
+    const command = commands[i];
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error: ${error.message}`);
+        return;
+      }
+  
+      if (stderr) {
+        console.error(`stderr: ${stderr}`);
+        return;
+      }
+  
+      console.log(`stdout: ${stdout}`);
+    });
+  }
+
 });
 
 // Set up a route to handle 404 errors
