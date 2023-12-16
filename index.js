@@ -20,13 +20,13 @@ app.all('/deploy', (req, res) => {
 
   try {
     exec('git stash', (error, stdout, stderr) => {
-      console.error(`Error: ${error.message}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
+      console.error(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
       exec('git pull', (error, stdout, stderr) => {
-        console.error(`Error: ${error.message}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
+        console.error(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
         exec('npm install -f', (error, stdout, stderr) => {
-          console.error(`Error: ${error.message}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
+          console.error(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
           exec('pm2 restart default-frontend', (error, stdout, stderr) => {
-            console.error(`Error: ${error.message}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
+            console.error(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
           });
         });
       });
