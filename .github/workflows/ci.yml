@@ -8,6 +8,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      MY_ENVIRONMENT_NAME: "DEFAULT"
+
     strategy:
       matrix:
         node-version: [16.x]
