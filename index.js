@@ -23,10 +23,7 @@ app.get('/', (req, res) => {
 app.all('/deploy', (req, res) => {
   try {
     // 8e1ea604-540b-40cb-b39e-473a9e2f478a
-    const secret = "8e1ea604-540b-40cb-b39e-473a9e2f478a";
     const signature = req.headers['x-hub-signature-256'];
-    console.log(signature);
-    console.log({headers: req.headers});
     if (signature) {
       // Webhook is valid, process the payload
       exec('git stash', (error, stdout, stderr) => {
@@ -44,7 +41,6 @@ app.all('/deploy', (req, res) => {
       res.json({status: true});
     } else {
       // Invalid webhook, respond with an error
-      console.log('Invalid webhook signature on webhook.');
       res.json({status: false});
     }
     
