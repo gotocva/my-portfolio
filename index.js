@@ -40,6 +40,7 @@ app.all('/deploy', (req, res) => {
     });
   }
 
+  res.json({status: true});
 });
 
 // Set up a route to handle 404 errors
