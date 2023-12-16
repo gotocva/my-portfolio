@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f8f9fa;
+}
+
+.error-container {
+    text-align: center;
+}
+
+.error-code {
+    font-size: 8rem;
+    font-weight: bold;
+    color: #dc3545;
+}
+
+.error-message {
+    font-size: 1.5rem;
+    color: #495057;
+}
+
+.home-link {
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background-color: black !important;
+    border-color: black !important;
+}

@@ -12,7 +12,8 @@
 }
 
 .navbar-dark .navbar-nav .nav-link.active {
-    text-decoration: underline !important;
+    /* text-decoration: underline !important; */
+    color: #ff3300 !important;
 }
 /** Large devices **/
 @media only screen and (min-width: 993px) {
@@ -26,4 +27,8 @@
     .section {
         margin-top: 5rem !important;
     }
+}
+
+a:hover{
+    color: #ff3300 !important;
 }
