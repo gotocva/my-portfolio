@@ -17,20 +17,23 @@ app.get('/', (req, res) => {
 
 app.all('/deploy', (req, res) => {
 
-  res.json({status: true});
-
-  exec('git stash', (error, stdout, stderr) => {
-    console.error(`Error: ${error.message}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
-    exec('git pull', (error, stdout, stderr) => {
+  try {
+    exec('git stash', (error, stdout, stderr) => {
       console.error(`Error: ${error.message}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
-      exec('npm install -f', (error, stdout, stderr) => {
+      exec('git pull', (error, stdout, stderr) => {
         console.error(`Error: ${error.message}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
-        exec('pm2 restart default-frontend', (error, stdout, stderr) => {
+        exec('npm install -f', (error, stdout, stderr) => {
           console.error(`Error: ${error.message}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
+          exec('pm2 restart default-frontend', (error, stdout, stderr) => {
+            console.error(`Error: ${error.message}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
+          });
         });
       });
     });
-  });
+    res.json({status: true});
+  } catch (error) {
+    res.json({status: true});
+  }
 
 });
 
