@@ -1,0 +1,29 @@
+.nav-link {
+    color: white !important;
+    font-family: 'Andada Pro', serif;
+    font-weight: 400;
+}
+
+.posts .post {
+    margin-bottom: 45px;
+}
+.posts .title {
+    margin: 0 0 15px 0;
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+    text-decoration: underline !important;
+}
+/** Large devices **/
+@media only screen and (min-width: 993px) {
+    .section {
+        margin-top: 7rem !important;
+    }
+}
+
+/** Mobile small devices **/
+@media only screen and (max-width: 576px) {
+    .section {
+        margin-top: 5rem !important;
+    }
+}

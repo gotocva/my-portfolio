@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sivabharathy K.P</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,800;1,300;1,400;1,600;1,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Andada+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/css/custom.css" rel="stylesheet" type="text/css" />
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Sivabharathy K.P</a>
+
+            <!-- Toggle button for smaller screens -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section" >
+        <div class="dcontainer">
+            <div class="post" >
+            
+                <h2 id="setting-up-subdomain-with-apache-and-ssl-using-certbot">Setting Up Subdomain with Apache and SSL Using Certbot</h2>
+<p>Creating a subdomain and securing it with SSL is essential for providing a secure and organized web environment. In this guide, we&#39;ll go through the process of setting up a subdomain using Apache as the web server and obtaining an SSL certificate from Let&#39;s Encrypt using Certbot.</p>
+<h2 id="step-1-create-apache-virtual-host-configuration">Step 1: Create Apache Virtual Host Configuration</h2>
+<p>Save the following content as <code>cdn-siva.conf</code> in the directory <code>/etc/apache2/sites-available</code>.</p>
+<pre><code class="lang-bash"><span class="hljs-section">&lt;VirtualHost *:80&gt;</span>
+    <span class="hljs-attribute"><span class="hljs-nomarkup">ServerName</span></span> cdn.sivabharathy.in
+    <span class="hljs-attribute">ServerAdmin</span> webmaster@localhost
+    <span class="hljs-attribute"><span class="hljs-nomarkup">DocumentRoot</span></span> /var/www/html
+
+    <span class="hljs-attribute">ProxyRequests</span> <span class="hljs-literal">On</span>
+    <span class="hljs-attribute">ProxyPass</span> / <span class="hljs-string">"http://154.49.243.252:3000/"</span>
+    <span class="hljs-attribute">ProxyPassReverse</span> / <span class="hljs-string">"http://154.49.243.252:3000/"</span>
+
+    <span class="hljs-attribute">ErrorLog</span> <span class="hljs-variable">${APACHE_LOG_DIR}</span>/error.log
+    <span class="hljs-attribute">CustomLog</span> <span class="hljs-variable">${APACHE_LOG_DIR}</span>/access.log combined
+
+    <span class="hljs-attribute"><span class="hljs-nomarkup">RewriteEngine</span></span> <span class="hljs-literal">on</span>
+    <span class="hljs-attribute"><span class="hljs-nomarkup">RewriteCond</span></span> <span class="hljs-variable">%{SERVER_NAME}</span> =cdn.sivabharathy.in
+    <span class="hljs-attribute"><span class="hljs-nomarkup">RewriteRule</span></span> ^ https://<span class="hljs-variable">%{SERVER_NAME}</span><span class="hljs-variable">%{REQUEST_URI}</span><span class="hljs-meta"> [END,NE,R=permanent]</span>
+<span class="hljs-section">&lt;/VirtualHost&gt;</span>
+</code></pre>
+<h2 id="step-2-create-symbolic-link">Step 2: Create Symbolic Link</h2>
+<p>Run the following command to create a symbolic link to <code>sites-enabled</code>.</p>
+<pre><code class="lang-bash">sudo ln -s <span class="hljs-regexp">/etc/</span>apache2<span class="hljs-regexp">/sites-available/</span>cdn-siva.conf <span class="hljs-regexp">/etc/</span>apache2<span class="hljs-regexp">/sites-enabled/</span>
+</code></pre>
+<h2 id="step-3-obtain-ssl-certificate-with-certbot">Step 3: Obtain SSL Certificate with Certbot</h2>
+<p>Run the Certbot command to generate an SSL certificate for the subdomain.</p>
+<pre><code class="lang-bash">sudo certbot --apache -d cdn<span class="hljs-selector-class">.sivabharathy</span><span class="hljs-selector-class">.in</span>
+</code></pre>
+<p>Certbot will guide you through the process, prompting you to enter information and agreeing to terms.</p>
+<h2 id="step-4-restart-apache">Step 4: Restart Apache</h2>
+<p>After obtaining the SSL certificate, restart Apache to apply the changes.</p>
+<pre><code class="lang-bash">sudo service apache2 <span class="hljs-built_in">restart</span>
+</code></pre>
+<p>Now, your subdomain <code>cdn.sivabharathy.in</code> is configured with Apache and secured with SSL. Ensure that the DNS records for the subdomain are correctly set up to point to your server&#39;s IP address.</p>
+<p>This setup allows you to host your application on the specified IP address and proxy requests through Apache while ensuring secure communication with SSL. Keep in mind that the proxy settings in the Apache configuration might need adjustments based on your application&#39;s requirements.</p>
+
+
+               
+            </div>
+
+            <div class="posts">
+		
+                <h2>Similar posts</h2>
+		
+                <div class="post blurb">
+                    <div class="post-header">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <div class="meta">
+                                        <div class="date">
+                                            13 May 2023
+                                        </div>
+                                    </div>
+                                    <h3 class="title">
+                                        <a href="/blog/this-time-it-feels-different/">This time, it feels different</a>
+                                    </h3>
+                                </div>
+                                <p class="card-text">
+                                    <div class="description">
+                                        The AI breakthroughs in the past few months, unlike other technology hypes, feels different.
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+
+            </div>
+
+        </div>
+        <div class="footer">
+          <div class="footer-left">
+            <a href="/">&#129040; back to home page</a>
+          </div>
+        </div>
+      </section>
+    <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

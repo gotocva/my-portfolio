@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sivabharathy K.P</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,800;1,300;1,400;1,600;1,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Andada+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/css/custom.css" rel="stylesheet" type="text/css" />
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Sivabharathy K.P</a>
+
+            <!-- Toggle button for smaller screens -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section" >
+        <div class="dcontainer">
+            <div class="post" >
+            
+                <h2 id="deploying-nodejs-application-as-service-using-systemd">Deploying Nodejs application as service using systemd</h2>
+<p>Systemd is a system and service manager for Linux operating systems that has become the standard init system in many distributions. With systemd, managing Node.js applications becomes more straightforward, eliminating the need for additional process managers like forever, monit, or PM2. In this article, we&#39;ll explore how to leverage systemd to manage and run a Node.js application.</p>
+<h2 id="creating-a-systemd-service-file">Creating a systemd Service File</h2>
+<p>The first step is to create a systemd service file for your Node.js application. Replace &#39;myapp&#39; with the actual name of your application. Create a file named <code>myapp.service</code> (or your app&#39;s name with the <code>.service</code> extension) with the following content:</p>
+<pre><code class="lang-ini"><span class="hljs-section">[Unit]</span>
+<span class="hljs-attr">Description</span>=My Node.js App
+<span class="hljs-section">
+[Service]</span>
+<span class="hljs-attr">ExecStart</span>=/var/www/myapp/app.js
+<span class="hljs-attr">Restart</span>=always
+<span class="hljs-attr">User</span>=nobody
+<span class="hljs-attr">Group</span>=nogroup
+<span class="hljs-attr">Environment</span>=PATH=/usr/bin:/usr/local/bin
+<span class="hljs-attr">Environment</span>=NODE_ENV=production
+<span class="hljs-attr">WorkingDirectory</span>=/var/www/myapp
+<span class="hljs-section">
+[Install]</span>
+<span class="hljs-attr">WantedBy</span>=multi-user.target
+</code></pre>
+<p>Make sure to replace <code>/var/www/myapp/app.js</code> with the actual path to your Node.js application script. If you&#39;re new to Unix, ensure that your script has <code>#!/usr/bin/env node</code> on the first line and is executable (run <code>chmod +x /var/www/myapp/app.js</code>).</p>
+<h2 id="managing-the-systemd-service">Managing the systemd Service</h2>
+<ol>
+<li><p><strong>Copy the Service File:</strong>
+Copy the service file into the <code>/etc/systemd/system</code> folder.</p>
+<pre><code class="lang-bash">sudo cp myapp.service <span class="hljs-regexp">/etc/</span>systemd<span class="hljs-regexp">/system/</span>
+</code></pre>
+</li>
+<li><p><strong>Reload systemd:</strong>
+Inform systemd about the new service file.</p>
+<pre><code class="lang-bash"><span class="hljs-attribute">sudo systemctl daemon-reload</span>
+</code></pre>
+</li>
+<li><p><strong>Start the Service:</strong>
+Start your Node.js application service.</p>
+<pre><code class="lang-bash">sudo systemctl <span class="hljs-literal">start</span> myapp
+</code></pre>
+</li>
+<li><p><strong>Enable Auto-Start on Boot:</strong>
+Ensure that your application starts on system boot.</p>
+<pre><code class="lang-bash">sudo systemctl <span class="hljs-built_in">enable</span> myapp
+</code></pre>
+</li>
+</ol>
+<h2 id="checking-logs">Checking Logs</h2>
+<p>To view the logs of your Node.js application managed by systemd, you can use the <code>journalctl</code> command.</p>
+<pre><code class="lang-bash"><span class="hljs-attribute">journalctl -u myapp</span>
+</code></pre>
+<p>This command will display the logs related to your application service.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Systemd simplifies the management of Node.js applications on Linux systems. By creating a systemd service file, you can define how your application should run, restart, and interact with the system. Leveraging systemd not only streamlines the process but also integrates your Node.js application seamlessly into the Linux system&#39;s service management.</p>
+
+
+               
+            </div>
+
+            <div class="posts">
+		
+                <h2>Similar posts</h2>
+		
+                <div class="post blurb">
+                    <div class="post-header">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <div class="meta">
+                                        <div class="date">
+                                            13 May 2023
+                                        </div>
+                                    </div>
+                                    <h3 class="title">
+                                        <a href="/blog/this-time-it-feels-different/">This time, it feels different</a>
+                                    </h3>
+                                </div>
+                                <p class="card-text">
+                                    <div class="description">
+                                        The AI breakthroughs in the past few months, unlike other technology hypes, feels different.
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+
+            </div>
+
+        </div>
+        <div class="footer">
+          <div class="footer-left">
+            <a href="/">&#129040; back to home page</a>
+          </div>
+        </div>
+      </section>
+    <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sivabharathy K.P</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,800;1,300;1,400;1,600;1,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Andada+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/css/custom.css" rel="stylesheet" type="text/css" />
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Sivabharathy K.P</a>
+
+            <!-- Toggle button for smaller screens -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section" >
+        <div class="dcontainer">
+            <div class="post" >
+            
+
+                <h2 id="best-practices-for-designing-restful-api-routes">Best Practices for Designing RESTful API Routes</h2>
+                <p>Designing RESTful API routes involves making decisions that impact the clarity, consistency, and maintainability of your API. Adhering to naming conventions and best practices is crucial for creating an API that is intuitive and easy to work with. Here are some common conventions and best practices to consider:</p>
+                <h2 id="1-use-plural-nouns-for-resources">1. Use Plural Nouns for Resources</h2>
+                <p><strong>Good:</strong> <code>/users</code>, <code>/posts</code><br><strong>Avoid:</strong> <code>/user</code>, <code>/post</code></p>
+                <p>Using plural nouns for resources creates a consistent and predictable structure for your API.</p>
+                <h2 id="2-use-nouns-for-resources">2. Use Nouns for Resources</h2>
+                <p><strong>Good:</strong> <code>/articles</code>, <code>/comments</code><br><strong>Avoid:</strong> <code>/getArticles</code>, <code>/updateComment</code></p>
+                <p>Keep resource names simple and use nouns that describe the entities being manipulated.</p>
+                <h2 id="3-use-http-methods-for-operations">3. Use HTTP Methods for Operations</h2>
+                <ul>
+                <li><strong>GET:</strong> Retrieve a resource.<ul>
+                <li><code>/users</code> (get all users)</li>
+                <li><code>/users/{id}</code> (get user by ID)</li>
+                </ul>
+                </li>
+                <li><strong>POST:</strong> Create a new resource.<ul>
+                <li><code>/users</code> (create a new user)</li>
+                </ul>
+                </li>
+                <li><strong>PUT/PATCH:</strong> Update an existing resource.<ul>
+                <li><code>/users/{id}</code> (update user by ID)</li>
+                </ul>
+                </li>
+                <li><strong>DELETE:</strong> Delete a resource.<ul>
+                <li><code>/users/{id}</code> (delete user by ID)</li>
+                </ul>
+                </li>
+                </ul>
+                <p>Use HTTP methods to indicate the operation being performed on a resource.</p>
+                <h2 id="4-use-consistent-endpoint-naming">4. Use Consistent Endpoint Naming</h2>
+                <p>Be consistent in the structure of your endpoints for better developer understanding.</p>
+                <p><strong>Good:</strong> <code>/users/{id}/posts</code><br><strong>Avoid:</strong> <code>/get_user_posts/{id}</code></p>
+                <h2 id="5-versioning">5. Versioning</h2>
+                <p>Include API versioning in the URL to manage changes over time.</p>
+                <p><code>/v1/users</code>, <code>/v2/posts</code></p>
+                <h2 id="6-use-camelcase-for-query-parameters">6. Use CamelCase for Query Parameters</h2>
+                <p><strong>Good:</strong> <code>/users?sortBy=name&amp;order=asc</code><br><strong>Avoid:</strong> <code>/users?sort_by=name&amp;order=ASC</code></p>
+                <p>Maintain consistency in naming conventions, even for query parameters.</p>
+                <h2 id="7-use-consistent-http-status-codes">7. Use Consistent HTTP Status Codes</h2>
+                <p>Use appropriate HTTP status codes for responses to convey the outcome of the request.</p>
+                <h2 id="8-use-plural-nouns-for-subresources">8. Use Plural Nouns for Subresources</h2>
+                <p><strong>Good:</strong> <code>/users/{id}/posts</code><br><strong>Avoid:</strong> <code>/user/{id}/post</code></p>
+                <h2 id="9-handle-subresource-relationships">9. Handle Subresource Relationships</h2>
+                <p>Use nested resources for relationships.</p>
+                <p><code>/users/{id}/posts</code> (get posts for a user)</p>
+                <h2 id="10-use-action-names-for-non-crud-operations">10. Use Action Names for Non-CRUD Operations</h2>
+                <p><strong>Good:</strong> <code>/users/{id}/activate</code><br><strong>Avoid:</strong> <code>/activateUser/{id}</code></p>
+                <p>For non-CRUD actions, use action names in the route.</p>
+                <h2 id="11-use-consistent-naming-for-query-parameters">11. Use Consistent Naming for Query Parameters</h2>
+                <p><strong>Good:</strong> <code>/posts?author=john&amp;published=true</code><br><strong>Avoid:</strong> <code>/posts?by=john&amp;show=published</code></p>
+                <h2 id="12-use-plural-nouns-for-controller-handler-functions">12. Use Plural Nouns for Controller/Handler Functions</h2>
+                <p><strong>Good:</strong> <code>getUsers</code>, <code>createPost</code><br><strong>Avoid:</strong> <code>getUser</code>, <code>create_a_post</code></p>
+                <p>Maintain consistency in function names for handling routes.</p>
+                <h2 id="13-consistent-casing-for-route-parameters">13. Consistent Casing for Route Parameters</h2>
+                <p><strong>Good:</strong> <code>/users/{userId}</code>, <code>/posts/{postId}</code><br><strong>Avoid:</strong> <code>/users/{UserID}</code>, <code>/posts/{post_id}</code></p>
+                <p>Keep route parameters in a consistent casing style.</p>
+                <h2 id="14-use-resource-nesting-wisely">14. Use Resource Nesting Wisely</h2>
+                <p>Avoid excessive nesting to keep the API structure simple and readable.</p>
+                <p><strong>Good:</strong> <code>/users/{id}/posts/{postId}</code><br><strong>Avoid:</strong> <code>/users/{id}/posts/{postId}/comments</code></p>
+                <h2 id="15-include-relationships-in-responses">15. Include Relationships in Responses</h2>
+                <p>For resources with relationships, include related resources in the response.</p>
+                <p><code>/users/{id}/posts</code> (include posts for the user)</p>
+                <p>Remember, the key to a successful API design is consistency. Consistent naming conventions and best practices make your API more developer-friendly and easier to maintain over time.</p>
+                
+            </div>
+
+            <div class="posts">
+		
+                <h2>Similar posts</h2>
+		
+                <div class="post blurb">
+                    <div class="post-header">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <div class="meta">
+                                        <div class="date">
+                                            13 May 2023
+                                        </div>
+                                    </div>
+                                    <h3 class="title">
+                                        <a href="/blog/this-time-it-feels-different/">This time, it feels different</a>
+                                    </h3>
+                                </div>
+                                <p class="card-text">
+                                    <div class="description">
+                                        The AI breakthroughs in the past few months, unlike other technology hypes, feels different.
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+
+            </div>
+
+        </div>
+        <div class="footer">
+          <div class="footer-left">
+            <a href="/">&#129040; back to home page</a>
+          </div>
+        </div>
+      </section>
+    <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
