@@ -21,7 +21,7 @@ app.all('/deploy', (req, res) => {
     'git stash',
     'git pull',
     'npm install -f',
-    'pm2 restart default-backend'
+    'pm2 restart default-frontend'
   ]
   for (let i = 0; i < commands.length; i++) {
     const command = commands[i];
