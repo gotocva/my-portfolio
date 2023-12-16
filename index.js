@@ -27,13 +27,13 @@ app.all('/deploy', (req, res) => {
     if (signature) {
       // Webhook is valid, process the payload
       exec('git stash', (error, stdout, stderr) => {
-        console.error(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
+        console.log(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
         exec('git pull', (error, stdout, stderr) => {
-          console.error(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
+          console.log(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
           exec('npm install -f', (error, stdout, stderr) => {
-            console.error(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
+            console.log(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
             exec('pm2 restart default-frontend', (error, stdout, stderr) => {
-              console.error(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
+              console.log(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
             });
           });
         });
