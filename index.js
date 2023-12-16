@@ -16,9 +16,15 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+/**
+ * deploy api
+ */
 app.all('/deploy', (req, res) => {
-
   try {
+    // 8e1ea604-540b-40cb-b39e-473a9e2f478a
+    const signature = req.headers['x-hub-signature-256'];
+    console.log(signature);
+    console.log({headers: req.headers});
     exec('git stash', (error, stdout, stderr) => {
       console.error(`Error: ${error}`, `stderr: ${stderr}`, `stdout: ${stdout}`);
       exec('git pull', (error, stdout, stderr) => {
@@ -35,7 +41,6 @@ app.all('/deploy', (req, res) => {
   } catch (error) {
     res.json({status: true});
   }
-
 });
 
 // Set up a route to handle 404 errors
