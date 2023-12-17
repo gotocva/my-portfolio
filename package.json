@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "nodemon --watch public --ext js,html index.js",
+    "start": "node index.js",
     "purge": "purgecss --config purgecss.config.js --output ./public/css/bootstrap/"
   },
   "keywords": [],
@@ -15,5 +17,8 @@
     "crypto": "^1.0.1",
     "express": "^4.18.2",
     "purgecss": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
   }
 }
